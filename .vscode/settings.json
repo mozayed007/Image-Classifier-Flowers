@@ -1,0 +1,22 @@
+{
+    "cSpell.words": [
+        "arange",
+        "argmax",
+        "barh",
+        "efficientnet",
+        "figsize",
+        "imshow",
+        "optim",
+        "preds",
+        "relu",
+        "rowspan",
+        "Softmax",
+        "torchvision",
+        "tqdm",
+        "xerr",
+        "xlabel",
+        "yaxis",
+        "yticklabels",
+        "yticks"
+    ]
+}

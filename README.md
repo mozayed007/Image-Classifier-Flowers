@@ -1,6 +1,6 @@
-# Improved README
+# Image Classifier: Transfer Learning
 
-## Flower Classifier: A Deep Learning Project
+## Flower Classifier - A Deep Learning Project
 
 This repository contains a flower classifier built for Udacity's AI Programming with Python Nanodegree. The classifier is built using PyTorch and can be trained on any set of labelled images. The current version is trained to recognize 102 different species of flowers.
 

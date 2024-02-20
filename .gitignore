@@ -160,6 +160,7 @@ cython_debug/
 #.idea/
 *.gz
 *.pth
+*.zip
 flowers/
 results_checkpt/
 .vscode/

@@ -1,20 +1,25 @@
 import torch
-from torchvision import transforms, datasets
-import torchvision.models as models
-import torch.nn as nn
-import torch.optim as optim
+from torchvision import transforms
 import torch.nn.functional as F
 from torchvision.models import vgg19, alexnet, VGG19_Weights, AlexNet_Weights 
-import numpy as np
 from PIL import Image
-import matplotlib.pyplot as plt
 import json
-from collections import OrderedDict
 from efficientnet_pytorch import EfficientNet
-from collections  import OrderedDict
 import argparse
 
 def predict(image_path, model, topk, device):
+    """
+    Predicts the topk probabilities and classes for a given image using a trained model.
+
+    Args:
+        image_path (str): The path to the image file.
+        model (torch.nn.Module): The trained model.
+        topk (int): The number of top probabilities to return.
+        device (torch.device): The device to perform the prediction on.
+
+    Returns:
+        tuple: A tuple containing two tensors - the topk probabilities and their corresponding classes.
+    """
     model.to(device)
 
     img = Image.open(image_path)
@@ -32,14 +37,24 @@ def predict(image_path, model, topk, device):
     return probability.topk(topk)
 
 def load_model(file_path):
+    """
+    Loads a pre-trained model from a checkpoint file.
+
+    Args:
+        file_path (str): The path to the checkpoint file.
+
+    Returns:
+        torch.nn.Module: The loaded model.
+
+    Raises:
+        ValueError: If the network architecture is unexpected.
+    """
     checkpoint = torch.load(file_path)  # loading checkpoint from a file
     arch = checkpoint['arch']
     class_to_idx = checkpoint['class_to_idx']
 
-
     if arch == 'vgg19':
         model = vgg19(weights=VGG19_Weights.IMAGENET1K_V1)
-
     elif arch == 'alexnet':
         model = alexnet(weights=AlexNet_Weights.IMAGENET1K_V1)
     elif arch == 'efficientnet-b0':
@@ -78,7 +93,7 @@ def process_image(image):
 def main():
     parser = argparse.ArgumentParser (description = 'Parser _ prediction script')
     parser.add_argument ('--image_dir', help = 'Input image path. Mandatory', type = str)
-    parser.add_argument ('--load_dir', help = 'Checkpoint path. Optional', default = "checkpoint.pth", type = str)
+    parser.add_argument ('--load_dir', help = 'Checkpoint path. Optional', default = "results_checkpt/###_###_###_#.pth", type = str)
     parser.add_argument ('--top_k', help = 'Choose number of Top K classes. Default is 5', default = 5, type = int)
     parser.add_argument ('--category_names', help = 'Provide path of JSON file mapping categories to names. Optional', type = str)
     parser.add_argument('--gpu', action='store_true', help='Use GPU if available')

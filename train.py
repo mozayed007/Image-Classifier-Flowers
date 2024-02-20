@@ -18,6 +18,17 @@ from tqdm import tqdm
 import torch.distributed as dist
 
 def unfreeze_layers(model, arch, num_layers_to_unfreeze):
+    """
+    Unfreezes the specified number of layers in the model based on the architecture.
+
+    Args:
+        model (torch.nn.Module): The model to unfreeze layers for.
+        arch (str): The architecture of the model.
+        num_layers_to_unfreeze (int): The number of layers to unfreeze.
+
+    Returns:
+        None
+    """
     if arch in ['vgg19', 'alexnet']:
         # Get the number of features in the classifier
         num_features = len(list(model.features.children()))
@@ -97,6 +108,27 @@ def load_model(arch='efficientnet-b0', num_labels=102, hidden_units=512, class_t
     return model
 
 # Model Training Function implementation
+def train_model(image_datasets, args ,arch='efficientnet-b0', hidden_units=512, epochs=25, learning_rate=0.001, gpu=True, checkpoint=None, class_to_idx=None, device =torch.device("cuda:0")):
+    """
+    Trains a model using the provided image datasets and training parameters.
+
+    Args:
+        image_datasets (dict): A dictionary containing the image datasets for training and validation.
+        args: Command line arguments.
+        arch (str, optional): The architecture of the model. Defaults to 'efficientnet-b0'.
+        hidden_units (int, optional): The number of hidden units in the model. Defaults to 512.
+        epochs (int, optional): The number of epochs to train the model. Defaults to 25.
+        learning_rate (float, optional): The learning rate for the optimizer. Defaults to 0.001.
+        gpu (bool, optional): Whether to use GPU for training. Defaults to True.
+        checkpoint (str, optional): The directory to save the checkpoint. Defaults to None.
+        class_to_idx (dict, optional): A dictionary mapping class names to indices. Defaults to None.
+        device (torch.device, optional): The device to use for training. Defaults to torch.device("cuda:0").
+
+    Returns:
+        model: The trained model.
+    """
+    # Function code...
+    pass
 def train_model(image_datasets, args ,arch='efficientnet-b0', hidden_units=512, epochs=25, learning_rate=0.001, gpu=True, checkpoint=None, class_to_idx=None, device =torch.device("cuda:0")):
     # Use command line values when specified
     if args.arch:
@@ -291,6 +323,15 @@ def train_model(image_datasets, args ,arch='efficientnet-b0', hidden_units=512, 
     return model
 
 def load_data(data_dir):
+    """
+    Loads the image datasets from the specified directory and applies the necessary transformations.
+
+    Args:
+        data_dir (str): The directory path where the image datasets are located.
+
+    Returns:
+        dict: A dictionary containing the loaded image datasets for training, validation, and testing.
+    """
     # Define your transforms for the training, validation, and testing sets
     data_transforms = {
         'train': transforms.Compose([
@@ -321,6 +362,8 @@ def load_data(data_dir):
     }
 
     return image_datasets
+
+
 def main():
     # Define command line arguments
     parser = argparse.ArgumentParser()

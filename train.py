@@ -127,9 +127,6 @@ def train_model(image_datasets, args ,arch='efficientnet-b0', hidden_units=512, 
     Returns:
         model: The trained model.
     """
-    # Function code...
-    pass
-def train_model(image_datasets, args ,arch='efficientnet-b0', hidden_units=512, epochs=25, learning_rate=0.001, gpu=True, checkpoint=None, class_to_idx=None, device =torch.device("cuda:0")):
     # Use command line values when specified
     if args.arch:
         arch = args.arch     

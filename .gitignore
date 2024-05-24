@@ -167,3 +167,4 @@ results_checkpt/
 .ipynb_checkpoints/
 __pycache__/
 test.py
+CODEOWNERS
